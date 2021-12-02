@@ -1,6 +1,6 @@
 # Advent of Code 2021 // quirky node.js
 
-[Find challanges on adeventofcode.com](https://adventofcode.com/2021/)
+[Find challanges on adventofcode.com](https://adventofcode.com/2021/)
 
 ## Run these solutions
 
