@@ -12,39 +12,20 @@ export const prepare = (input) => {
     );
 };
 
-const ensureY = (y, matrix) => {
-  if (!Array.isArray(matrix[y])) matrix[y] = [];
-};
+const drawLine = ([[x1, y1], [x2, y2]], matrix, drawDiagonals = false) => {
+  if (!drawDiagonals && !(x1 === x2 || y1 === y2)) return;
 
-const drawCell = (x, y, matrix) => {
-  ensureY(y, matrix);
-  matrix[y][x] = (matrix[y][x] ?? 0) + 1;
-};
+  const drawCell = (x, y) => {
+    if (!Array.isArray(matrix[y])) matrix[y] = [];
+    matrix[y][x] = (matrix[y][x] ?? 0) + 1;
+  };
 
-const drawLine = (line, matrix, drawDiagonals = false) => {
-  const x1 = line[0][0];
-  const x2 = line[1][0];
-  const y1 = line[0][1];
-  const y2 = line[1][1];
+  const xDir = x1 === x2 ? 0 : x1 < x2 ? 1 : -1;
+  const yDir = y1 === y2 ? 0 : y1 < y2 ? 1 : -1;
+  const lineLength = Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 
-  if (x1 === x2) {
-    for (let y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
-      drawCell(x1, y, matrix);
-    }
-  } else if (y1 === y2) {
-    for (let x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
-      drawCell(x, y1, matrix);
-    }
-  } else if (drawDiagonals) {
-    const xDir = x1 < x2 ? 1 : -1;
-    const yDir = y1 < y2 ? 1 : -1;
-    const len = Math.abs(x1 - x2);
-
-    for (let i = 0; i <= len; i++) {
-      const x = x1 + i * xDir;
-      const y = y1 + i * yDir;
-      drawCell(x, y, matrix);
-    }
+  for (let i = 0; i <= lineLength; i++) {
+    drawCell(x1 + i * xDir, y1 + i * yDir);
   }
 };
 
