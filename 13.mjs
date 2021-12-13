@@ -45,5 +45,5 @@ export const b = ({ dots, folds }) => {
     grid[dot[1]][dot[0]] = "█";
   });
   // print grid
-  return "\n" + grid.map((row) => row.join("")).join("\n");
+  return "\n\x1b[33m" + grid.map((row) => row.join("")).join("\n") + "\x1b[0m";
 };
