@@ -26,17 +26,17 @@ const getPairCounts = (template) => {
   return pairCounts;
 };
 
-const increaseCount = (counts, element, amount = 1) => (
-  (counts[element] = (counts[element] ?? 0) + amount), counts
-);
+const increaseCount = (counts, element, amount = 1) => {
+  counts[element] = (counts[element] ?? 0) + amount;
+};
 
 const permutate = ({ pairCounts, rules }) => {
-  const newPairs = {};
+  const newPairCounts = {};
   for (let pair in pairCounts) {
-    increaseCount(newPairs, pair[0] + rules[pair], pairCounts[pair]);
-    increaseCount(newPairs, rules[pair] + pair[1], pairCounts[pair]);
+    increaseCount(newPairCounts, pair[0] + rules[pair], pairCounts[pair]);
+    increaseCount(newPairCounts, rules[pair] + pair[1], pairCounts[pair]);
   }
-  return newPairs;
+  return newPairCounts;
 };
 
 const getElementCountsFromPairCounts = ({ pairCounts, template }) => {
